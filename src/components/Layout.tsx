@@ -1,5 +1,4 @@
 import Head from "next/head";
-import Navigation from "./Navigation";
 
 type Props = {
   children: React.ReactNode;
@@ -14,30 +13,49 @@ export default function Layout({ children }: Props) {
         <link rel="apple-touch-icon" href="/icon.png" />
         <meta name="theme-color" content="#fff" />
       </Head>
-      <nav>
-        <Navigation />
-      </nav>
+      <div className="header">
+        <ul className="navigation">
+          <li>Thing1</li>
+          <li>Thing2</li>
+          <li>Thing3</li>
+          <li>Thing4</li>
+        </ul>
+      </div>
+
       <main>{children}</main>
+
       <style jsx>
         {`
           .root {
-            display: block;
-            padding: 4rem 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 1fr 5fr ;
+            grid-template-areas:
+              "header header header"
+              "main main main";
             box-sizing: border-box;
             height: 100%;
           }
+
+          .header {
+            grid-area: header;
+            background: yellow;
+          }
+
+          .navigation {
+            display: flex;
+            flex-flow: wrap;
+            list-style: none;
+          }
+
+          .navigation > li {
+            margin-right: 10px;
+          } 
+
           main {
+            grid-area: main;
             display: flex;
             min-height: 100%;
-          }
-          @media (min-width: 769px) {
-            .root {
-              display: flex;
-              flex: 1 0 auto;
-            }
-            main {
-              flex: 1 0 auto;
-            }
           }
         `}
       </style>
